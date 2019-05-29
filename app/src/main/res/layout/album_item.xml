@@ -1,62 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-   <ImageView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           tools:src = "@tools:sample/avatars"
-           android:layout_marginTop="8dp"
-           android:layout_marginBottom="8dp"
-           android:layout_marginStart="8dp"
-           android:layout_marginEnd="8dp"
-   />
-
-    <LinearLayout
-            android:id="@+id/infoContainer"
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_width="match_parent"
+        android:padding="8dp"
+        android:background="#f2f2f2"
+>
+    <androidx.cardview.widget.CardView
+            android:id="@+id/albumCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="16dp"
+            android:background="#ffffff"
     >
-
-        <TextView
-                tools:text="Девочка в классе"
-                android:textSize="24sp"
-                android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/albumContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-        />
-        <TextView
-                tools:text="Джизус"
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-        />
-    </LinearLayout>
-    <TextView
-            tools:text="playcount:"
-            android:textSize="12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="8dp"
-    />
+        >
+            <ImageView
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    tools:src="@tools:sample/avatars"
+                    android:layout_marginTop="@dimen/marginTop"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/marginStart"
+                    android:layout_marginBottom="@dimen/marginBottom"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:id="@+id/albumImage"/>
+            <TextView
+                    tools:text="Девочка в классе"
+                    android:textSize="@dimen/trackTitleSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trackTitle"
+                    app:layout_constraintStart_toEndOf="@+id/albumImage"
+                    android:layout_marginTop="@dimen/marginTop"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="@dimen/marginStart"
+                    app:layout_constraintHorizontal_bias="0.0" app:layout_constraintEnd_toStartOf="@+id/guideline3"/>
+            <TextView
+                    tools:text="Джизус"
+                    android:textSize="@dimen/artistNameSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/artistName"
+                    android:layout_marginTop="@dimen/marginBetweenElements"
+                    app:layout_constraintTop_toBottomOf="@+id/trackTitle"
+                    app:layout_constraintStart_toEndOf="@+id/albumImage"
+                    android:layout_marginStart="@dimen/marginStart" android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline" app:layout_constraintVertical_bias="0.0"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintHorizontal_bias="0.0" app:layout_constraintEnd_toStartOf="@+id/guideline3"/>
+            <TextView
+                    android:text="@string/play_count"
+                    android:textSize="@dimen/playCountSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playCountNumber"
+                    app:layout_constraintEnd_toStartOf="@+id/playCount"
+                    android:layout_marginEnd="@dimen/marginBetweenElements"
+                    android:layout_marginTop="@dimen/marginTop"
+                    app:layout_constraintTop_toTopOf="@+id/guideline"
+                    android:layout_marginBottom="@dimen/marginBottom"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                    tools:text="297"
+                    android:textSize="@dimen/playCountSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playCount"
+                    android:layout_marginBottom="@dimen/marginBottom"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/marginEnd"
+                    android:layout_marginTop="@dimen/marginTop"
+                    app:layout_constraintTop_toTopOf="@+id/guideline"/>
+            <androidx.constraintlayout.widget.Guideline
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintGuide_begin="117dp"
+                    android:id="@+id/guideline"/>
+            <androidx.constraintlayout.widget.Guideline
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:layout_constraintGuide_begin="390dp"
+                    android:id="@+id/guideline3"/>
 
-    <TextView
-            tools:text="126"
-            android:textSize="12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="8dp"
-    />
 
-</LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</FrameLayout>
+
+

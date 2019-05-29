@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kotify</string>
+    <string name="play_count">Play count:</string>
+    <string name="api_key">d6e24fc8d6da721a0761e551f519447e</string>
 </resources>

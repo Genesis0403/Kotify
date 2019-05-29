@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginTop">8dp</dimen>
+    <dimen name="marginStart">8dp</dimen>
+    <dimen name="marginBottom">8dp</dimen>
+    <dimen name="marginEnd">8dp</dimen>
+    <dimen name="trackTitleSize">24sp</dimen>
+    <dimen name="artistNameSize">16sp</dimen>
+    <dimen name="marginBetweenElements">4dp</dimen>
+    <dimen name="playCountSize">12sp</dimen>
+</resources>

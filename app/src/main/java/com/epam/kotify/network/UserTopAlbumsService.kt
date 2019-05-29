@@ -10,7 +10,7 @@ interface UserTopAlbumsService {
     @GET("?method=user.gettopalbums&format=json")
     fun getUserTopAlbums(
         @Query("user") user: String,
-        @Query("limit") limit: String,
+        @Query("limit") limit: Int,
         @Query("api_key") apiKey: String
     ): Call<TopAlbumsResponse>
 }
