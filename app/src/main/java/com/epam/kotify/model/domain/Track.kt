@@ -1,8 +1,9 @@
 package com.epam.kotify.model.domain
 
-data class Album(
+data class Track(
     val title: String,
     val artist: String,
     val image: String,
-    val playcount: Int
+    val duration: Long,
+    val listeners: Int
 )

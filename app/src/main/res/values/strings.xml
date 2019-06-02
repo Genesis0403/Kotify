@@ -2,4 +2,6 @@
     <string name="app_name">Kotify</string>
     <string name="play_count">Play count:</string>
     <string name="api_key">d6e24fc8d6da721a0761e551f519447e</string>
+    <string name="listeners">Listeners:</string>
+    <string name="maps_api_key">AIzaSyCo2PVxNtwWuMlrRMkqKU7xQJnRUAlR8rM</string>
 </resources>
