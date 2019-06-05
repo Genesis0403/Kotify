@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:kotifyApp="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
             android:id="@+id/albumCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/cornerRadius"
+            kotifyApp:cardCornerRadius="@dimen/cornerRadius"
             android:background="#ffffff"
     >
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,11 +25,11 @@
                     android:layout_height="130dp"
                     tools:src="@tools:sample/avatars"
                     android:layout_marginTop="@dimen/marginTop"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    kotifyApp:layout_constraintTop_toTopOf="parent"
+                    kotifyApp:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="@dimen/marginStart"
                     android:layout_marginBottom="@dimen/marginBottom"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    kotifyApp:layout_constraintBottom_toBottomOf="parent"
                     android:id="@+id/trackImage"/>
             <TextView
                     tools:text="Девочка в классе"
@@ -37,14 +37,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/trackTitle"
-                    app:layout_constraintStart_toEndOf="@+id/trackImage"
+                    kotifyApp:layout_constraintStart_toEndOf="@+id/trackImage"
                     android:layout_marginTop="@dimen/marginTop"
-                    app:layout_constraintTop_toTopOf="parent"
+                    kotifyApp:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="@dimen/marginStart"
                     android:singleLine="false"
-                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/guideline"
-                    app:layout_constraintVertical_bias="0.028" android:layout_marginEnd="8dp"
-                    app:layout_constraintHorizontal_bias="0.0" app:layout_constraintEnd_toEndOf="parent"/>
+                    android:layout_marginBottom="8dp" kotifyApp:layout_constraintBottom_toTopOf="@+id/guideline"
+                    kotifyApp:layout_constraintVertical_bias="0.028" android:layout_marginEnd="8dp"
+                    kotifyApp:layout_constraintHorizontal_bias="0.0" kotifyApp:layout_constraintEnd_toEndOf="parent"/>
             <TextView
                     tools:text="Джизус"
                     android:textSize="@dimen/artistNameSize"
@@ -52,24 +52,24 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/artistName"
                     android:layout_marginTop="@dimen/marginBetweenElements"
-                    app:layout_constraintTop_toBottomOf="@+id/trackTitle"
-                    app:layout_constraintStart_toEndOf="@+id/trackImage"
+                    kotifyApp:layout_constraintTop_toBottomOf="@+id/trackTitle"
+                    kotifyApp:layout_constraintStart_toEndOf="@+id/trackImage"
                     android:layout_marginStart="@dimen/marginStart" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline" app:layout_constraintVertical_bias="0.0"
+                    kotifyApp:layout_constraintBottom_toTopOf="@+id/guideline" kotifyApp:layout_constraintVertical_bias="0.0"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintHorizontal_bias="0.0" app:layout_constraintEnd_toEndOf="parent"/>
+                    kotifyApp:layout_constraintHorizontal_bias="0.0" kotifyApp:layout_constraintEnd_toEndOf="parent"/>
             <TextView
                     android:text="@string/play_count"
                     android:textSize="@dimen/playCountSize"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/listenersCount"
-                    app:layout_constraintEnd_toStartOf="@+id/listenersCountNumber"
+                    kotifyApp:layout_constraintEnd_toStartOf="@+id/listenersCountNumber"
                     android:layout_marginEnd="@dimen/marginBetweenElements"
                     android:layout_marginTop="@dimen/marginTop"
-                    app:layout_constraintTop_toTopOf="@+id/guideline"
+                    kotifyApp:layout_constraintTop_toTopOf="@+id/guideline"
                     android:layout_marginBottom="@dimen/marginBottom"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    kotifyApp:layout_constraintBottom_toBottomOf="parent"/>
             <TextView
                     tools:text="297"
                     android:textSize="@dimen/playCountSize"
@@ -77,16 +77,16 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/listenersCountNumber"
                     android:layout_marginBottom="@dimen/marginBottom"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    kotifyApp:layout_constraintBottom_toBottomOf="parent"
+                    kotifyApp:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="@dimen/marginEnd"
                     android:layout_marginTop="@dimen/marginTop"
-                    app:layout_constraintTop_toTopOf="@+id/guideline"/>
+                    kotifyApp:layout_constraintTop_toTopOf="@+id/guideline"/>
             <androidx.constraintlayout.widget.Guideline
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintGuide_begin="117dp"
+                    kotifyApp:layout_constraintGuide_begin="117dp"
                     android:id="@+id/guideline"/>
 
 

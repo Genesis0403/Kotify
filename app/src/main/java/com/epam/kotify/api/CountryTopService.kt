@@ -10,13 +10,6 @@ import retrofit2.http.Query
 
 interface CountryTopService {
 
-//    @GET("?method=geo.gettopartists&format=json")
-//    fun getGeoTopArtists(
-//        @Query("country") country: String,
-//        @Query("limit") limit: Int,
-//        @Query("api_key") apiKey: String
-//    ): Call<TopArtistsResponse>
-
     @GET("?method=geo.gettopartists&format=json")
     fun getGeoTopArtists(
         @Query("country") country: String,
@@ -31,13 +24,6 @@ interface CountryTopService {
         @Query("api_key") apiKey: String
     ): Call<TopAlbumsResponse>
 
-//    @GET("?method=geo.gettoptracks&format=json")
-//    fun getGeoTopTracks(
-//        @Query("country") country: String,
-//        @Query("limit") limit: Int,
-//        @Query("api_key") apiKey: String
-//    ): Call<TopTracksResponse>
-//
     @GET("?method=geo.gettoptracks&format=json")
     fun getGeoTopTracks(
         @Query("country") country: String,
