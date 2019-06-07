@@ -1,4 +1,4 @@
-package com.epam.kotify.ui
+package com.epam.kotify.ui.albumview
 
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.epam.kotify.R
+import com.epam.kotify.api.CountryTopService
 import com.epam.kotify.model.albums.TopAlbumsResponse
 import com.epam.kotify.model.domain.Album
-import com.epam.kotify.network.RetrofitBuilder
-import com.epam.kotify.network.UserTopAlbumsService
+import com.epam.kotify.api.RetrofitBuilder
 import com.epam.kotify.utils.Constants
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +22,7 @@ import retrofit2.Response
 
 class TopAlbumsFragment : Fragment() {
 
+    private val retrofit = RetrofitBuilder().retrofit
     private val albums: MutableList<Album> = mutableListOf()
 
     override fun onCreateView(
@@ -29,20 +30,23 @@ class TopAlbumsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.top_albums_fragment, container, false)
+        return inflater.inflate(R.layout.recycler_view_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val progress = view.findViewById<ProgressBar>(R.id.progress)
-        val recycler = view.findViewById<RecyclerView>(R.id.albumsContainer)
+        val recycler = view.findViewById<RecyclerView>(R.id.topsRecyclerView)
         recycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = AlbumsAdapter(albums)
 
             val topAlbumsService =
-                RetrofitBuilder.retrofit.create(UserTopAlbumsService::class.java)
-                    .getUserTopAlbums(Constants.TEMP_USER, LIMIT, context.getString(R.string.api_key))
+                retrofit.create(CountryTopService::class.java)
+                    .getUserTopAlbums(
+                        Constants.TEMP_USER,
+                        LIMIT.toString(), context.getString(R.string.api_key)
+                    )
 
             topAlbumsService.enqueue(object : Callback<TopAlbumsResponse> {
                 override fun onFailure(call: Call<TopAlbumsResponse>, t: Throwable) {
@@ -56,10 +60,10 @@ class TopAlbumsFragment : Fragment() {
                         val serverAlbums = response.body()?.topAlbums?.albums
                         albums.addAll(serverAlbums?.map {
                             Album(
-                                it.title,
-                                it.artist?.name,
-                                it.image.last()?.url,
-                                it.playCount
+                                it.title ?: "None",
+                                it.artist?.name ?: "None",
+                                it.image.last()?.url ?: "",
+                                it.playCount ?: 0
                             )
                         } ?: return)
                         adapter?.notifyDataSetChanged()

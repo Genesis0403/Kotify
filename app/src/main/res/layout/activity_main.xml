@@ -7,4 +7,25 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity"
         android:id="@+id/mainActivity">
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/topsViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    >
+
+        <androidx.viewpager.widget.PagerTabStrip
+                android:id="@+id/tabsStrip"
+                style="@style/Widget.AppCompat.Toolbar.Button.Navigation"
+                android:textColor="#ffffff"
+                android:textSize="24sp"
+                android:layout_gravity="top"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        </androidx.viewpager.widget.PagerTabStrip>
+
+    </androidx.viewpager.widget.ViewPager>
+
 </FrameLayout>

@@ -1,20 +1,30 @@
 package com.epam.kotify.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.epam.kotify.api.ApiResponse
-import com.epam.kotify.api.ApiSuccessResponse
 import com.epam.kotify.api.CountryTopService
+import com.epam.kotify.db.AppDatabase
+import com.epam.kotify.db.TopsDao
+import com.epam.kotify.model.artists.Artist
 import com.epam.kotify.model.artists.TopArtistsResponse
-import com.epam.kotify.model.domain.Artist
-import com.epam.kotify.model.domain.Track
 import com.epam.kotify.model.tracks.TopTracksResponse
+import com.epam.kotify.model.tracks.Track
 import com.epam.kotify.utils.AppExecutors
-import retrofit2.Retrofit
+import com.epam.kotify.utils.ConnectionManager
+import javax.inject.Inject
 
-class TopsRepository(
-    private val retrofit: Retrofit,
-    private val executors: AppExecutors
+class TopsRepository @Inject constructor(
+    private val executors: AppExecutors,
+    private val db: AppDatabase,
+    private val topsDao: TopsDao,
+    private val countryTopService: CountryTopService,
+    private val connectionManager: ConnectionManager
 ) {
+
+    private companion object {
+        private const val TAG = "TOPS REPOSITORY"
+    }
 
     fun loadCountryTopArtists(
         country: String,
@@ -23,28 +33,31 @@ class TopsRepository(
     ): LiveData<Resource<List<Artist>>> {
         return object : NetworkBoundResource<List<Artist>, TopArtistsResponse>(executors) {
             override fun saveCallResult(item: TopArtistsResponse) {
-                TODO("not implemented")
+                Log.d(TAG, "SAVING")
+                val items = item.topArtists?.artists ?: emptyList()
+                db.runInTransaction {
+                    topsDao.clearArtists()
+                    topsDao.insertArtists(items)
+                }
             }
 
             override fun shouldFetch(data: List<Artist>?): Boolean {
-                return data == null || data.isEmpty()
+                Log.d(TAG, "SHOULD FETCH?")
+                return connectionManager.hasConnection()
             }
 
             override fun loadFromDb(): LiveData<List<Artist>> {
-                TODO("not implemented")
+                Log.d(TAG, "LOAD FROM DB")
+                return topsDao.getTopArtists()
             }
 
             override fun createCall(): LiveData<ApiResponse<TopArtistsResponse>> {
-                return retrofit.create(CountryTopService::class.java).getGeoTopArtists(country, limit, apiKey)
+                Log.d(TAG, "MAKE CALL")
+                return countryTopService.getGeoTopArtists(country, limit, apiKey)
             }
-
-            override fun processResponse(response: ApiSuccessResponse<TopArtistsResponse>): TopArtistsResponse {
-                return super.processResponse(response)
-            }
-
         }.asLiveData()
-
     }
+
 
     fun loadCountryTopTracks(
         country: String,
@@ -53,23 +66,25 @@ class TopsRepository(
     ): LiveData<Resource<List<Track>>> {
         return object : NetworkBoundResource<List<Track>, TopTracksResponse>(executors) {
             override fun saveCallResult(item: TopTracksResponse) {
-                TODO("not implemented")
+                val items = item.topTracks?.tracks ?: emptyList()
+                db.runInTransaction {
+                    topsDao.apply {
+                        clearTracks()
+                        insertTracks(items)
+                    }
+                }
             }
 
             override fun shouldFetch(data: List<Track>?): Boolean {
-                return data == null || data.isEmpty()
+                return connectionManager.hasConnection()
             }
 
             override fun loadFromDb(): LiveData<List<Track>> {
-                TODO("not implemented")
+                return topsDao.getTopTracks()
             }
 
             override fun createCall(): LiveData<ApiResponse<TopTracksResponse>> {
-                return retrofit.create(CountryTopService::class.java).getGeoTopTracks(country, limit, apiKey)
-            }
-
-            override fun processResponse(response: ApiSuccessResponse<TopTracksResponse>): TopTracksResponse {
-                return super.processResponse(response)
+                return countryTopService.getGeoTopTracks(country, limit, apiKey)
             }
 
         }.asLiveData()

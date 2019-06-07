@@ -1,4 +1,4 @@
-package com.epam.kotify.ui
+package com.epam.kotify.ui.albumview
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.TransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.epam.kotify.R
 import com.epam.kotify.model.domain.Album
@@ -24,13 +23,16 @@ class AlbumsAdapter(private val albums: List<Album>) : RecyclerView.Adapter<Recy
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder as AlbumViewHolder
-        holder.apply {
-            val item = albums[position]
-            title.text = item.title ?: "N/A"
-            artist.text = item.artist ?: "N/A"
-            playcount.text = item.playcount?.toString() ?: "N/A"
-            loadImage(image, item.image)
+        when (holder) {
+            is AlbumViewHolder -> {
+                holder.apply {
+                    val item = albums[position]
+                    title.text = item.title
+                    artist.text = item.artist
+                    playcount.text = item.playcount.toString()
+                    loadImage(image, item.image)
+                }
+            }
         }
     }
 
@@ -42,10 +44,10 @@ class AlbumsAdapter(private val albums: List<Album>) : RecyclerView.Adapter<Recy
             .into(imageView)
     }
 
-    inner class AlbumViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.albumImage)
+    class AlbumViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView = view.findViewById(R.id.trackImage)
         val title: TextView = view.findViewById(R.id.trackTitle)
         val artist: TextView = view.findViewById(R.id.artistName)
-        val playcount: TextView = view.findViewById(R.id.playCountNumber)
+        val playcount: TextView = view.findViewById(R.id.listenersCountNumber)
     }
 }

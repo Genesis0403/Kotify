@@ -27,4 +27,5 @@ class KotifyApp : Application(), HasActivityInjector {
     }
 
     override fun activityInjector() = dispatchingActivityInjector
+
 }

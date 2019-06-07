@@ -1,9 +1,9 @@
 package com.epam.kotify.repository
 
 data class Resource<T>(
-    var status: Status,
-    var data: T?,
-    var message: String?
+    val status: Status,
+    val data: T?,
+    val message: String?
 ) {
 
     companion object {
