@@ -90,7 +90,7 @@
                     kotifyApp:layout_constraintTop_toTopOf="@+id/guideline"
                     android:layout_marginBottom="@dimen/marginBottom"
                     kotifyApp:layout_constraintBottom_toBottomOf="parent"
-                    kotifyApp:layout_constraintVertical_bias="0.0"
+                    kotifyApp:layout_constraintVertical_bias="1.0"
                     android:layout_marginEnd="@dimen/marginBetweenElements"
                     kotifyApp:layout_constraintEnd_toStartOf="@+id/listenersCountNumber"
             />

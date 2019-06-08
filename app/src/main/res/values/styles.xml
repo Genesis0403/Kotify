@@ -1,29 +1,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="actionBarStyle">@style/CustomActionBarStyle</item>
+        <item name="android:textColorPrimary">@color/appPrimaryColor</item>
+        <item name="android:windowBackground">@color/appBackgroundColor</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="android:actionMenuTextColor">@color/appPrimaryColor</item>
     </style>
 
-    <style name="CustomActionBarStyle"
-           parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse"
-    >
-        <item name="background">@color/appBarBackground</item>
-        <item name="titleTextStyle">@style/CustomAppBarTextStyle</item>
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
-
-    <style name="CustomAppBarTextStyle"
-           parent="@style/TextAppearance.AppCompat.Title.Inverse">
-        <item name="android:textColor">@color/appPrimaryColor</item>
-    </style>
-
-    <style name="CustomTabBarStyle"
-           parent="@style/Widget.AppCompat.ActionBar.TabView">
-        <item name="android:background">@color/background</item>
-    </style>
-
 </resources>

@@ -33,7 +33,7 @@ class MapFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
     private lateinit var mapView: MapView
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         KotifyApp.component.inject(this)
     }

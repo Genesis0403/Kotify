@@ -38,7 +38,7 @@ class TopTracksFragment : Fragment() {
 
     private val tracksAdapter = TracksAdapter()
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         KotifyApp.component.inject(this)
     }

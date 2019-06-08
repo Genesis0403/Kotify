@@ -34,7 +34,7 @@ class TopArtistsFragment : Fragment() {
 
     private val artistsAdapter = ArtistsAdapter()
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         KotifyApp.component.inject(this)
         super.onAttach(context)
     }
