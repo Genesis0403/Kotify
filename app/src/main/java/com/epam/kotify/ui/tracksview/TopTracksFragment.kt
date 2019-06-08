@@ -6,22 +6,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.epam.kotify.KotifyApp
 import com.epam.kotify.R
 import com.epam.kotify.model.domain.Track
 import com.epam.kotify.repository.Resource
-import com.epam.kotify.repository.Status
+import com.epam.kotify.ui.EmptyRecyclerView
 import com.epam.kotify.ui.TopsViewModel
 import com.epam.kotify.utils.AppExecutors
 import javax.inject.Inject
 
 class TopTracksFragment : Fragment() {
+
+    companion object {
+        private const val TAG = "TRACKS FRAGMENT"
+        fun newInstance() = TopTracksFragment()
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -40,7 +45,7 @@ class TopTracksFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[TopsViewModel::class.java]
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[TopsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -53,27 +58,25 @@ class TopTracksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recycler = view.findViewById<RecyclerView>(R.id.topsRecyclerView)
+        val recycler = view.findViewById<EmptyRecyclerView>(R.id.topsRecyclerView)
 
         recycler.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = tracksAdapter
+            emptyView = view.findViewById<TextView>(R.id.emptyView)
         }
 
         val progress = view.findViewById<ProgressBar>(R.id.progress)
         viewModel.tracks.observe(this, Observer<Resource<List<Track>>> {
-            if (it.status == Status.SUCCESS || it.status == Status.ERROR) {
+            if (it.status.isLoading()) {
+                progress.visibility = ProgressBar.VISIBLE
+            } else {
                 tracksAdapter.setTracks(it.data!!)
                 progress.visibility = ProgressBar.GONE
-            } else {
-                progress.visibility = ProgressBar.VISIBLE
             }
         })
     }
 
-    companion object {
-        private const val TAG = "TRACKS FRAGMENT"
-        fun newInstance() = TopTracksFragment()
-    }
+
 }

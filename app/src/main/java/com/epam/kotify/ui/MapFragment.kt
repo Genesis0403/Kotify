@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.epam.kotify.KotifyApp
 import com.epam.kotify.R
+import com.epam.kotify.repository.Status
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.MapsInitializer
@@ -39,7 +40,7 @@ class MapFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[TopsViewModel::class.java]
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[TopsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -60,14 +61,24 @@ class MapFragment : Fragment() {
 
         mapView.getMapAsync { map ->
             googleMap = map
+
             googleMap.setOnMapClickListener { point ->
                 googleMap.clear()
                 googleMap.addMarker(MarkerOptions().position(point))
                 viewModel.onMarkerSet(point, context)
             }
-        }
 
+            loadPrevMarker()
+        }
         return view
+    }
+
+    private fun loadPrevMarker() {
+        viewModel.position?.let {
+            if (viewModel.artists.value?.status != Status.LOADING) {
+                googleMap.addMarker(MarkerOptions().position(it))
+            }
+        }
     }
 
     override fun onResume() {

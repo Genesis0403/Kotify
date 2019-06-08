@@ -6,14 +6,13 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:padding="@dimen/cardViewContainerPadding"
-        android:background="#f2f2f2"
+        android:background="@color/appBackgroundColor"
 >
     <androidx.cardview.widget.CardView
             android:id="@+id/albumCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             kotifyApp:cardCornerRadius="@dimen/cornerRadius"
-            android:background="#ffffff"
     >
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/albumContainer"
@@ -21,8 +20,8 @@
                 android:layout_height="wrap_content"
         >
             <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="@dimen/itemImageWidth"
+                    android:layout_height="@dimen/itemImageHeight"
                     tools:src="@tools:sample/avatars"
                     android:layout_marginTop="@dimen/marginTop"
                     kotifyApp:layout_constraintTop_toTopOf="parent"
@@ -42,9 +41,12 @@
                     kotifyApp:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="@dimen/marginStart"
                     android:singleLine="false"
-                    android:layout_marginBottom="8dp" kotifyApp:layout_constraintBottom_toTopOf="@+id/guideline"
-                    kotifyApp:layout_constraintVertical_bias="0.028" android:layout_marginEnd="8dp"
-                    kotifyApp:layout_constraintHorizontal_bias="0.0" kotifyApp:layout_constraintEnd_toEndOf="parent"/>
+                    android:layout_marginBottom="@dimen/marginBottom"
+                    kotifyApp:layout_constraintBottom_toTopOf="@+id/guideline"
+                    kotifyApp:layout_constraintVertical_bias="0.028"
+                    android:layout_marginEnd="@dimen/marginEnd"
+                    kotifyApp:layout_constraintHorizontal_bias="0.0"
+                    kotifyApp:layout_constraintEnd_toEndOf="parent"/>
             <TextView
                     tools:text="Джизус"
                     android:textSize="@dimen/artistNameSize"
@@ -55,10 +57,10 @@
                     kotifyApp:layout_constraintTop_toBottomOf="@+id/trackTitle"
                     kotifyApp:layout_constraintStart_toEndOf="@+id/trackImage"
                     android:layout_marginStart="@dimen/marginStart"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/marginBottom"
                     kotifyApp:layout_constraintBottom_toTopOf="@+id/guideline"
                     kotifyApp:layout_constraintVertical_bias="0.0"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/marginEnd"
                     kotifyApp:layout_constraintHorizontal_bias="0.0"
                     kotifyApp:layout_constraintEnd_toEndOf="parent"/>
 
@@ -89,8 +91,9 @@
                     android:layout_marginBottom="@dimen/marginBottom"
                     kotifyApp:layout_constraintBottom_toBottomOf="parent"
                     kotifyApp:layout_constraintVertical_bias="0.0"
-                    android:layout_marginStart="132dp"
-                    kotifyApp:layout_constraintStart_toStartOf="@+id/duration"/>
+                    android:layout_marginEnd="@dimen/marginBetweenElements"
+                    kotifyApp:layout_constraintEnd_toStartOf="@+id/listenersCountNumber"
+            />
             <TextView
                     tools:text="297"
                     android:textSize="@dimen/playCountSize"
@@ -103,13 +106,12 @@
                     android:layout_marginEnd="@dimen/marginEnd"
                     android:layout_marginTop="@dimen/marginTop"
                     kotifyApp:layout_constraintTop_toTopOf="@+id/guideline"
-                    kotifyApp:layout_constraintStart_toEndOf="@+id/listenersCount"
-                    android:layout_marginStart="@dimen/marginBetweenElements"/>
+            />
             <androidx.constraintlayout.widget.Guideline
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    kotifyApp:layout_constraintGuide_begin="117dp"
+                    kotifyApp:layout_constraintGuide_begin="@dimen/guidelineMarginTop"
                     android:id="@+id/guideline"/>
 
 

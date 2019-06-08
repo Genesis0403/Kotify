@@ -25,7 +25,7 @@ class ArtistsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is ArtistViewHolder -> {
                 val item = artists[position]
                 holder.apply {
@@ -56,5 +56,4 @@ class ArtistsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val artist: TextView = view.findViewById(R.id.artistName)
         val listeners: TextView = view.findViewById(R.id.listenersCountNumber)
     }
-
 }

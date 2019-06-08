@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.epam.kotify.R
 import com.epam.kotify.model.domain.Track
-import java.lang.StringBuilder
 import java.util.concurrent.TimeUnit
 
 class TracksAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -27,7 +26,7 @@ class TracksAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is TrackViewHolder -> {
                 val item = tracks[position]
                 holder.apply {

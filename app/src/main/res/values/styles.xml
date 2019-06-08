@@ -6,6 +6,24 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/CustomActionBarStyle</item>
+    </style>
+
+    <style name="CustomActionBarStyle"
+           parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse"
+    >
+        <item name="background">@color/appBarBackground</item>
+        <item name="titleTextStyle">@style/CustomAppBarTextStyle</item>
+    </style>
+
+    <style name="CustomAppBarTextStyle"
+           parent="@style/TextAppearance.AppCompat.Title.Inverse">
+        <item name="android:textColor">@color/appPrimaryColor</item>
+    </style>
+
+    <style name="CustomTabBarStyle"
+           parent="@style/Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@color/background</item>
     </style>
 
 </resources>

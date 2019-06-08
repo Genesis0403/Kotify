@@ -11,8 +11,6 @@ import com.epam.kotify.model.artists.Artist
 import com.epam.kotify.model.tracks.Track
 import com.epam.kotify.repository.Resource
 import com.epam.kotify.repository.TopsRepository
-import com.epam.kotify.ui.artistview.TopArtistsFragment
-import com.epam.kotify.ui.tracksview.TopTracksFragment
 import com.epam.kotify.utils.Constants
 import com.google.android.gms.maps.model.LatLng
 import java.util.*
@@ -24,20 +22,8 @@ class TopsViewModel @Inject constructor(
     private val repository: TopsRepository
 ) : ViewModel() {
 
-
-    //TODO move fragments and pages to Dagger
-    //TODO save marker position
-    val fragments = listOf(
-        MapFragment.newInstance(),
-        TopArtistsFragment.newInstance(),
-        TopTracksFragment.newInstance()
-    )
-
-    val pagesNames = listOf(
-        "Map",
-        "Artists",
-        "Tracks"
-    )
+    private var _position: LatLng? = null
+    val position: LatLng? get() = _position
 
     private val _country = MutableLiveData<String>()
     val country: LiveData<String> get() = _country
@@ -62,7 +48,9 @@ class TopsViewModel @Inject constructor(
                         it.listeners ?: 0
                     )
                 }?.toList() ?: emptyList()
-                MutableLiveData<Resource<List<DomainArtist>>>().also { it.value = Resource.success(list) }
+                MutableLiveData<Resource<List<DomainArtist>>>().also {
+                    it.value = Resource.success(list)
+                }
             }
         }
 
@@ -92,6 +80,7 @@ class TopsViewModel @Inject constructor(
         }
 
     fun onMarkerSet(point: LatLng, context: Context?) {
+        _position = point
         val geocoder = Geocoder(context, Locale.US)
         try {
             val addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1)

@@ -11,4 +11,11 @@
     <dimen name="cardViewContainerPadding">8dp</dimen>
     <dimen name="cornerRadius">16dp</dimen>
     <dimen name="listenersTextSize">12sp</dimen>
+    <dimen name="appBarTextSize">24sp</dimen>
+    <dimen name="emptyItemImageHeight">300dp</dimen>
+    <dimen name="emptyItemTextSize">36sp</dimen>
+    <dimen name="itemImageWidth">130dp</dimen>
+    <dimen name="itemImageHeight">130dp</dimen>
+    <dimen name="guidelineMarginTop">118dp</dimen>
+    <dimen name="artistGuidlineBeginConstraint">100dp</dimen>
 </resources>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +17,7 @@ import com.epam.kotify.KotifyApp
 import com.epam.kotify.R
 import com.epam.kotify.model.domain.Artist
 import com.epam.kotify.repository.Resource
-import com.epam.kotify.repository.Status
+import com.epam.kotify.ui.EmptyRecyclerView
 import com.epam.kotify.ui.TopsViewModel
 import com.epam.kotify.utils.AppExecutors
 import javax.inject.Inject
@@ -40,7 +41,7 @@ class TopArtistsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[TopsViewModel::class.java]
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[TopsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -53,21 +54,22 @@ class TopArtistsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recycler = view.findViewById<RecyclerView>(R.id.topsRecyclerView)
+        val recycler = view.findViewById<EmptyRecyclerView>(R.id.topsRecyclerView)
 
         recycler.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = artistsAdapter
+            emptyView = view.findViewById<TextView>(R.id.emptyView)
         }
 
         val progress = view.findViewById<ProgressBar>(R.id.progress)
         viewModel.artists.observe(this, Observer<Resource<List<Artist>>> {
-            if (it.status == Status.SUCCESS || it.status == Status.ERROR) {
+            if (it.status.isLoading()) {
+                progress.visibility = ProgressBar.VISIBLE
+            } else {
                 progress.visibility = ProgressBar.GONE
                 artistsAdapter.setArtists(it.data!!)
-            } else {
-                progress.visibility = ProgressBar.VISIBLE
             }
         })
     }

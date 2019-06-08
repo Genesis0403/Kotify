@@ -3,8 +3,9 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <androidx.recyclerview.widget.RecyclerView
+        android:layout_height="match_parent"
+>
+    <com.epam.kotify.ui.EmptyRecyclerView
             android:id="@+id/topsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -13,8 +14,34 @@
 
     <ProgressBar
             android:id="@+id/progress"
+            android:indeterminateTint="@color/appPrimaryColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:visibility="gone"
     />
+
+    <LinearLayout
+            android:id="@+id/emptyView"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+    >
+        <ImageView
+                android:src="@drawable/empty_item_icon_24dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/emptyItemImageHeight"
+        />
+
+        <TextView
+                android:text="@string/sorry_there_re_no_data"
+                android:textSize="@dimen/emptyItemTextSize"
+                android:textColor="@color/appPrimaryColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+
+
 </FrameLayout>
