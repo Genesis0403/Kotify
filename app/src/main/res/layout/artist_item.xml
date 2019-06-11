@@ -11,11 +11,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             kotifyApp:cardCornerRadius="@dimen/cornerRadius"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
     >
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+        >
 
             <ImageView
                     android:layout_width="@dimen/itemImageWidth"

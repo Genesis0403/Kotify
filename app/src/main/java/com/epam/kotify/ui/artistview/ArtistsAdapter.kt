@@ -10,10 +10,23 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.epam.kotify.R
 import com.epam.kotify.model.domain.Artist
+import com.epam.kotify.ui.ItemAnimator
+import com.epam.kotify.ui.artistview.ArtistsAdapter.ArtistViewHolder
+
+/**
+ * Adapter of [RecyclerView] which contains list of [Artist].
+ * All view holders are animated.
+ *
+ * @see ArtistViewHolder
+ * @see ItemAnimator
+ *
+ * @author Vlad Korotkevich
+ */
 
 class ArtistsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var artists: List<Artist> = emptyList()
+    private val animator = ItemAnimator()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.artist_item, parent, false)
@@ -33,8 +46,14 @@ class ArtistsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     listeners.text = item.playCount.toString()
                     loadImage(image, item.image)
                 }
+                animator.fadeInAnimation(holder.itemView)
             }
         }
+    }
+
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.itemView.clearAnimation()
     }
 
     private fun loadImage(imageView: ImageView, url: String?) {

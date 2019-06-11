@@ -4,15 +4,28 @@ import android.app.Activity
 import android.app.Application
 import com.epam.kotify.di.AppComponent
 import com.epam.kotify.di.DaggerAppComponent
+import com.epam.kotify.utils.AppContextProvider
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-class KotifyApp : Application(), HasActivityInjector {
+/**
+ * Main application.
+ *
+ * @author Vlad Korotkevich
+ */
+
+class App : Application(), HasActivityInjector {
 
     companion object {
         private lateinit var _component: AppComponent
         val component: AppComponent get() = _component
+
+        private lateinit var _provider: AppContextProvider
+        val provider: AppContextProvider get() = _provider
+
+        fun getString(id: Int) = _provider.getString(id)
     }
 
     @Inject
@@ -20,6 +33,7 @@ class KotifyApp : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+        _provider = AppContextProvider(WeakReference(applicationContext))
         _component = DaggerAppComponent.builder()
             .application(this)
             .build()
@@ -27,5 +41,4 @@ class KotifyApp : Application(), HasActivityInjector {
     }
 
     override fun activityInjector() = dispatchingActivityInjector
-
 }

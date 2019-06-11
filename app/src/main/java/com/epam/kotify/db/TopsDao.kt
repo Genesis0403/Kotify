@@ -8,6 +8,12 @@ import androidx.room.Query
 import com.epam.kotify.model.artists.Artist
 import com.epam.kotify.model.tracks.Track
 
+/**
+ * DB requests.
+ *
+ * @author Vlad Korotkevich
+ */
+
 @Dao
 interface TopsDao {
 
@@ -28,5 +34,4 @@ interface TopsDao {
 
     @Query("DELETE FROM track")
     fun clearTracks()
-
 }

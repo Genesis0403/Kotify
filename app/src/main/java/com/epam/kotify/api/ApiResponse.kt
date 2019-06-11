@@ -2,6 +2,12 @@ package com.epam.kotify.api
 
 import retrofit2.Response
 
+/**
+ * Class which represents responses with error messages and data from API.
+ *
+ * @author Vlad Korotkevich
+ */
+
 sealed class ApiResponse<T> {
     companion object {
 

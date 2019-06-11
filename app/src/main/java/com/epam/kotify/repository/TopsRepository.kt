@@ -1,8 +1,8 @@
 package com.epam.kotify.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.epam.kotify.api.ApiResponse
+import com.epam.kotify.api.ApiSuccessResponse
 import com.epam.kotify.api.CountryTopService
 import com.epam.kotify.db.AppDatabase
 import com.epam.kotify.db.TopsDao
@@ -13,6 +13,19 @@ import com.epam.kotify.model.tracks.Track
 import com.epam.kotify.utils.AppExecutors
 import com.epam.kotify.utils.ConnectionManager
 import javax.inject.Inject
+
+/**
+ * Repository which takes care of API requests.
+ * Based on [NetworkBoundResource] which caches all requests and makes tham
+ * if only connection is established.
+ *
+ * @see NetworkBoundResource
+ * @see AppDatabase
+ * @see TopsDao
+ * @see CountryTopService
+ *
+ * @author Vlad Korotkevich
+ */
 
 class TopsRepository @Inject constructor(
     private val executors: AppExecutors,
@@ -32,32 +45,19 @@ class TopsRepository @Inject constructor(
         apiKey: String
     ): LiveData<Resource<List<Artist>>> {
         return object : NetworkBoundResource<List<Artist>, TopArtistsResponse>(executors) {
-            override fun saveCallResult(item: TopArtistsResponse) {
-                Log.d(TAG, "SAVING")
-                val items = item.topArtists?.artists ?: emptyList()
-                db.runInTransaction {
-                    topsDao.clearArtists()
-                    topsDao.insertArtists(items)
-                }
+            override fun processResponse(response: ApiSuccessResponse<TopArtistsResponse>): List<Artist> {
+                return response.body.topArtists?.artists ?: emptyList()
             }
 
-            override fun shouldFetch(data: List<Artist>?): Boolean {
-                Log.d(TAG, "SHOULD FETCH?")
+            override fun shouldFetch(): Boolean {
                 return connectionManager.hasConnection()
             }
 
-            override fun loadFromDb(): LiveData<List<Artist>> {
-                Log.d(TAG, "LOAD FROM DB")
-                return topsDao.getTopArtists()
-            }
-
             override fun createCall(): LiveData<ApiResponse<TopArtistsResponse>> {
-                Log.d(TAG, "MAKE CALL")
                 return countryTopService.getGeoTopArtists(country, limit, apiKey)
             }
         }.asLiveData()
     }
-
 
     fun loadCountryTopTracks(
         country: String,
@@ -65,28 +65,17 @@ class TopsRepository @Inject constructor(
         apiKey: String
     ): LiveData<Resource<List<Track>>> {
         return object : NetworkBoundResource<List<Track>, TopTracksResponse>(executors) {
-            override fun saveCallResult(item: TopTracksResponse) {
-                val items = item.topTracks?.tracks ?: emptyList()
-                db.runInTransaction {
-                    topsDao.apply {
-                        clearTracks()
-                        insertTracks(items)
-                    }
-                }
+            override fun processResponse(response: ApiSuccessResponse<TopTracksResponse>): List<Track> {
+                return response.body.topTracks?.tracks ?: emptyList()
             }
 
-            override fun shouldFetch(data: List<Track>?): Boolean {
+            override fun shouldFetch(): Boolean {
                 return connectionManager.hasConnection()
-            }
-
-            override fun loadFromDb(): LiveData<List<Track>> {
-                return topsDao.getTopTracks()
             }
 
             override fun createCall(): LiveData<ApiResponse<TopTracksResponse>> {
                 return countryTopService.getGeoTopTracks(country, limit, apiKey)
             }
-
         }.asLiveData()
     }
 }

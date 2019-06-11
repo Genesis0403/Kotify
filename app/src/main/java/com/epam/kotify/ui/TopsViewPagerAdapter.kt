@@ -6,6 +6,15 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.epam.kotify.ui.artistview.TopArtistsFragment
 import com.epam.kotify.ui.tracksview.TopTracksFragment
 
+/**
+ * ViewPager adapter which contains fragments.
+ *
+ * @see MapFragment
+ * @see TopArtistsFragment
+ * @see TopTracksFragment
+ *
+ * @author Vlad Korotkevich
+ */
 class TopsViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     private companion object {

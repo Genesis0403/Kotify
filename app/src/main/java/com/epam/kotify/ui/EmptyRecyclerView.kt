@@ -5,6 +5,13 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Modified [RecyclerView] which contains reference to [View]
+ * which will be shown if [RecyclerView.Adapter] is empty.
+ *
+ * @author Vlad Korotkevich
+ */
+
 class EmptyRecyclerView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null
@@ -34,5 +41,4 @@ class EmptyRecyclerView @JvmOverloads constructor(
         adapter?.registerAdapterDataObserver(dataObserver)
         dataObserver.onChanged()
     }
-
 }

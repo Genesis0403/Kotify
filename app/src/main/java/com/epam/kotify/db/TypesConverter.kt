@@ -5,6 +5,13 @@ import com.epam.kotify.model.Image
 import com.epam.kotify.model.artists.Artist
 import com.google.gson.Gson
 
+/**
+ * A type converter which is used to convert list of [Image]'s and [Artist]
+ * using [Gson].
+ *
+ * @author Vlad Korotkevich
+ */
+
 class TypesConverter {
 
     @TypeConverter

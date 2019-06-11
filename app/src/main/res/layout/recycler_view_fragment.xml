@@ -12,15 +12,6 @@
             tools:listitem="@layout/track_item"
     />
 
-    <ProgressBar
-            android:id="@+id/progress"
-            android:indeterminateTint="@color/appPrimaryColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-    />
-
     <LinearLayout
             android:id="@+id/emptyView"
             android:orientation="vertical"
@@ -29,7 +20,7 @@
             android:layout_gravity="center"
     >
         <ImageView
-                android:src="@drawable/empty_item_icon_24dp"
+                android:src="@drawable/empty_data_icon_24dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/emptyItemImageHeight"
         />
@@ -43,5 +34,13 @@
         />
     </LinearLayout>
 
+    <ProgressBar
+            android:id="@+id/progress"
+            android:indeterminateTint="@color/appPrimaryColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+    />
 
 </FrameLayout>

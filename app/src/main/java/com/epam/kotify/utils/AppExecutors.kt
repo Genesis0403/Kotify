@@ -7,6 +7,13 @@ import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Class which is used in writing data to DB, requests data from Network
+ * and main thread.
+ *
+ * @author Vlad Korotkevich
+ */
+
 @Singleton
 open class AppExecutors(
     private val diskIO: Executor,
@@ -15,7 +22,7 @@ open class AppExecutors(
 ) {
     @Inject constructor() : this(
         Executors.newSingleThreadExecutor(),
-        Executors.newFixedThreadPool(3),
+        Executors.newFixedThreadPool(2),
         MainThreadExecutor()
     )
 

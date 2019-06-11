@@ -3,8 +3,10 @@
     <string name="play_count">Play count:</string>
     <string name="api_key">d6e24fc8d6da721a0761e551f519447e</string>
     <string name="listeners">Listeners:</string>
-    <string name="maps_api_key">AIzaSyCo2PVxNtwWuMlrRMkqKU7xQJnRUAlR8rM</string>
-    <string name="sorry_there_re_no_data">Sorry, there\'re no data.</string>
+    <string name="maps_api_key">AIzaSyClZMinAQB-1Nkk-DB_Tbem1mqyUm6Q0lU</string>
+    <string name="sorry_there_re_no_data">Sorry, there\'re no data</string>
     <string name="light_theme">Light theme</string>
     <string name="dark_theme">Dark theme</string>
+    <string name="database">database</string>
+    <string name="baseUrl">http://ws.audioscrobbler.com/2.0/</string>
 </resources>

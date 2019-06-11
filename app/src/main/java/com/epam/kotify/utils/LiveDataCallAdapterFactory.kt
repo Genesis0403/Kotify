@@ -9,6 +9,13 @@ import java.lang.IllegalArgumentException
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
+/**
+ * Factory for [LiveDataCallAdapter]. It's been written to get API responses
+ * like [LiveData].
+ *
+ * @author Vlad Korotkevich
+ */
+
 private const val TYPES_MISMATCH_ERROR = "type must be a resource"
 private const val RESOURCE_NOT_PARAMETERIZED = "resource must be parameterized"
 
@@ -35,5 +42,4 @@ class LiveDataCallAdapterFactory : Factory() {
         val bodyType = getParameterUpperBound(0, observableType)
         return LiveDataCallAdapter<Any>(bodyType)
     }
-
 }

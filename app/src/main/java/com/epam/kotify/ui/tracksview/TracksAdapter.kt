@@ -10,11 +10,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.epam.kotify.R
 import com.epam.kotify.model.domain.Track
+import com.epam.kotify.ui.ItemAnimator
 import java.util.concurrent.TimeUnit
 
 class TracksAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var tracks: List<Track> = emptyList()
+    private val animator = ItemAnimator()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.track_item, parent, false)
@@ -36,8 +38,14 @@ class TracksAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     listeners.text = item.listeners.toString()
                     duration.text = convertIntoTime(item.duration)
                 }
+                animator.fadeInAnimation(holder.itemView)
             }
         }
+    }
+
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.itemView.clearAnimation()
     }
 
     private fun convertIntoTime(duration: Long): String {

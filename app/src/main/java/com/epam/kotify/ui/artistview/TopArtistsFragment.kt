@@ -13,29 +13,39 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.epam.kotify.KotifyApp
+import com.epam.kotify.App
 import com.epam.kotify.R
 import com.epam.kotify.model.domain.Artist
 import com.epam.kotify.repository.Resource
 import com.epam.kotify.ui.EmptyRecyclerView
 import com.epam.kotify.ui.TopsViewModel
-import com.epam.kotify.utils.AppExecutors
 import javax.inject.Inject
+
+/**
+ * Fragment which contains [EmptyRecyclerView] which [Artist] and
+ * makes request via [TopsViewModel] and observe [LiveData] of [Artist].
+ *
+ * @see TopsViewModel
+ *
+ * @author Vlad Korotkevich
+ */
 
 class TopArtistsFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    companion object {
+        private const val TAG = "ARTISTS FRAGMENT"
+        fun newInstance() = TopArtistsFragment()
+    }
 
     @Inject
-    lateinit var appExecutors: AppExecutors
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: TopsViewModel
 
     private val artistsAdapter = ArtistsAdapter()
 
     override fun onAttach(context: Context) {
-        KotifyApp.component.inject(this)
+        App.component.inject(this)
         super.onAttach(context)
     }
 
@@ -67,15 +77,12 @@ class TopArtistsFragment : Fragment() {
         viewModel.artists.observe(this, Observer<Resource<List<Artist>>> {
             if (it.status.isLoading()) {
                 progress.visibility = ProgressBar.VISIBLE
+                recycler.emptyView?.visibility = View.GONE
+                recycler.visibility = RecyclerView.GONE
             } else {
                 progress.visibility = ProgressBar.GONE
                 artistsAdapter.setArtists(it.data!!)
             }
         })
-    }
-
-    companion object {
-        private const val TAG = "ARTISTS FRAGMENT"
-        fun newInstance() = TopArtistsFragment()
     }
 }

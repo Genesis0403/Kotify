@@ -8,6 +8,17 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.reflect.Type
 import java.util.concurrent.atomic.AtomicBoolean
+import com.epam.kotify.api.CountryTopService
+
+/**
+ * Adapter which is used in parsing API responses.
+ *
+ *
+ * @see ApiResponse
+ * @see CountryTopService
+ *
+ * @author Vlad Korotkevich
+ */
 
 class LiveDataCallAdapter<R>(private val responseType: Type) :
     CallAdapter<R, LiveData<ApiResponse<R>>> {
@@ -28,7 +39,6 @@ class LiveDataCallAdapter<R>(private val responseType: Type) :
                         override fun onResponse(call: Call<R>, response: Response<R>) {
                             postValue(ApiResponse.create(response))
                         }
-
                     })
                 }
             }
@@ -36,5 +46,4 @@ class LiveDataCallAdapter<R>(private val responseType: Type) :
     }
 
     override fun responseType() = responseType
-
 }

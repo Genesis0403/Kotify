@@ -7,6 +7,13 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
+/**
+ * Module which binds ViewModel's and Factory fo them.
+ *
+ * @see AppModule
+ * @author Vlad Korotkevich
+ */
+
 @Module
 abstract class TopsViewModelModule {
 
@@ -17,5 +24,4 @@ abstract class TopsViewModelModule {
     @IntoMap
     @ViewModelKey(TopsViewModel::class)
     abstract fun provideTopsViewModel(viewModel: TopsViewModel): ViewModel
-
 }

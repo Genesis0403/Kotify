@@ -6,6 +6,12 @@ import com.epam.kotify.model.Image
 import com.epam.kotify.model.artists.Artist
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Entity class which is used as DB table and API response.
+ *
+ * @author Vlad Korotkevich
+ */
+
 @Entity
 data class Track(
     @PrimaryKey

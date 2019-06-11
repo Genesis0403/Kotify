@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.epam.kotify.KotifyApp
+import com.epam.kotify.App
 import com.epam.kotify.R
 import com.epam.kotify.repository.Status
 import com.google.android.gms.maps.GoogleMap
@@ -16,6 +16,15 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.MarkerOptions
 import javax.inject.Inject
+
+/**
+ * Fragments which contains a map and responsible for interacting with it.
+ * Changes [TopsViewModel] country [LiveData]
+ *
+ * @see TopsViewModel
+ *
+ * @author Vlad Korotkevich
+ */
 
 class MapFragment : Fragment() {
 
@@ -35,7 +44,7 @@ class MapFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        KotifyApp.component.inject(this)
+        App.component.inject(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +74,7 @@ class MapFragment : Fragment() {
             googleMap.setOnMapClickListener { point ->
                 googleMap.clear()
                 googleMap.addMarker(MarkerOptions().position(point))
-                viewModel.onMarkerSet(point, context)
+                viewModel.onMarkerSet(point)
             }
 
             loadPrevMarker()

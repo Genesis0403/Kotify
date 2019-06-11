@@ -6,6 +6,12 @@ import com.epam.kotify.ui.tracksview.TopTracksFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
+/**
+ * Module which is used to inject fragments.
+ *
+ * @author Vlad Korotkevich
+ */
+
 @Module
 abstract class FragmentsModule {
 

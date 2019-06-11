@@ -5,6 +5,12 @@ import androidx.room.PrimaryKey
 import com.epam.kotify.model.Image
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Entity class which is used as DB table and API response.
+ *
+ * @author Vlad Korotkevich
+ */
+
 @Entity
 data class Artist(
 

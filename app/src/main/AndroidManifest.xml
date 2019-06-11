@@ -3,12 +3,10 @@
           xmlns:tools="http://schemas.android.com/tools" package="com.epam.kotify">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
-            android:name=".KotifyApp"
-            android:allowBackup="true"
+            android:name=".App"
+            android:allowBackup="false"
             android:usesCleartextTraffic="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -19,7 +17,7 @@
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="@string/maps_api_key" />
+                android:value="@string/maps_api_key"/>
 
         <activity android:name=".ui.MainActivity">
 

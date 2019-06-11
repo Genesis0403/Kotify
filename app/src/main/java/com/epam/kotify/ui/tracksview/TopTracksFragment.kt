@@ -12,7 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.epam.kotify.KotifyApp
+import androidx.recyclerview.widget.RecyclerView
+import com.epam.kotify.App
 import com.epam.kotify.R
 import com.epam.kotify.model.domain.Track
 import com.epam.kotify.repository.Resource
@@ -20,6 +21,15 @@ import com.epam.kotify.ui.EmptyRecyclerView
 import com.epam.kotify.ui.TopsViewModel
 import com.epam.kotify.utils.AppExecutors
 import javax.inject.Inject
+
+/**
+ * Fragment which contains [EmptyRecyclerView] which [Track] and
+ * makes request via [TopsViewModel] and observes [LiveData] of [Track].
+ *
+ * @see TopsViewModel
+ *
+ * @author Vlad Korotkevich
+ */
 
 class TopTracksFragment : Fragment() {
 
@@ -31,16 +41,13 @@ class TopTracksFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject
-    lateinit var executors: AppExecutors
-
     private lateinit var viewModel: TopsViewModel
 
     private val tracksAdapter = TracksAdapter()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        KotifyApp.component.inject(this)
+        App.component.inject(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +77,8 @@ class TopTracksFragment : Fragment() {
         val progress = view.findViewById<ProgressBar>(R.id.progress)
         viewModel.tracks.observe(this, Observer<Resource<List<Track>>> {
             if (it.status.isLoading()) {
+                recycler.emptyView?.visibility = View.GONE
+                recycler.visibility = RecyclerView.GONE
                 progress.visibility = ProgressBar.VISIBLE
             } else {
                 tracksAdapter.setTracks(it.data!!)
@@ -77,6 +86,4 @@ class TopTracksFragment : Fragment() {
             }
         })
     }
-
-
 }
