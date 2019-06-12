@@ -18,7 +18,7 @@ import com.epam.kotify.R
 import com.epam.kotify.model.domain.Artist
 import com.epam.kotify.repository.Resource
 import com.epam.kotify.ui.EmptyRecyclerView
-import com.epam.kotify.ui.TopsViewModel
+import com.epam.kotify.ui.viewmodels.TopsViewModel
 import javax.inject.Inject
 
 /**

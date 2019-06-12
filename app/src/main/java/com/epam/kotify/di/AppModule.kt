@@ -2,6 +2,7 @@ package com.epam.kotify.di
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import android.location.Geocoder
 import android.net.ConnectivityManager
 import androidx.room.Room
@@ -19,7 +20,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.ref.WeakReference
 import java.util.*
 import javax.inject.Singleton
 
@@ -41,10 +41,10 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideCountryTopService(): CountryTopService {
+    fun provideCountryTopService(app: Application): CountryTopService {
         return Retrofit.Builder()
             .baseUrl(
-                App.getString(R.string.baseUrl)
+                app.getString(R.string.baseUrl)
                     ?: throw IllegalStateException(NO_STRING_RESOURCE)
             )
             .client(
@@ -63,8 +63,12 @@ class AppModule {
     @Singleton
     @Provides
     fun provideConnectionManager(app: Application): ConnectionManager {
-        val connectionManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return ConnectionManager(connectionManager)
+        val connectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return object : ConnectionManager {
+            override fun hasConnection(): Boolean {
+                return connectivityManager.activeNetworkInfo?.isConnected != null
+            }
+        }
     }
 
     @Singleton
@@ -72,7 +76,7 @@ class AppModule {
     fun provideDb(app: Application): AppDatabase {
         return Room
             .databaseBuilder(
-                app, AppDatabase::class.java, App.getString(R.string.database)
+                app, AppDatabase::class.java, app.getString(R.string.database)
                     ?: throw IllegalStateException(NO_STRING_RESOURCE)
             )
             .fallbackToDestructiveMigration()
@@ -88,7 +92,19 @@ class AppModule {
     @Singleton
     @Provides
     fun provideAppContextProvider(app: Application): AppContextProvider {
-        return AppContextProvider(WeakReference(app.applicationContext))
+        return object : AppContextProvider {
+            override fun context(): Context {
+                return app
+            }
+
+            override fun getString(id: Int): String? {
+                return app.getString(id)
+            }
+
+            override fun sharedPreferences(name: String, mode: Int): SharedPreferences {
+                return app.getSharedPreferences(name, mode)
+            }
+        }
     }
 
     @Singleton

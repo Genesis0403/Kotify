@@ -1,15 +1,18 @@
 package com.epam.kotify.utils
 
 import android.content.Context
+import android.content.SharedPreferences
 import java.lang.ref.WeakReference
 
 /**
- * Wrapper class which contains weak reference to Application Context.
+ * Interface which provides context.
+ * Used in injection.
  *
  * @author Vlad Korotkevich
  */
 
-data class AppContextProvider(val context: WeakReference<Context>) {
-
-    fun getString(id: Int) = context.get()?.getString(id)
+interface AppContextProvider {
+    fun getString(id: Int): String?
+    fun sharedPreferences(name: String, mode: Int): SharedPreferences
+    fun context(): Context
 }

@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ui.MainActivity"
         android:id="@+id/mainActivity"
         tools:menu="@menu/themes_menu"
+        android:orientation="vertical"
 >
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/mainActivityToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@color/appPrimaryColor"
+    />
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/topsViewPager"
@@ -29,4 +39,4 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-</FrameLayout>
+</LinearLayout>

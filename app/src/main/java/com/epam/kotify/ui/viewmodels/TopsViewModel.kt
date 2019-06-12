@@ -1,4 +1,4 @@
-package com.epam.kotify.ui
+package com.epam.kotify.ui.viewmodels
 
 import android.location.Geocoder
 import android.util.Log
@@ -11,8 +11,7 @@ import com.epam.kotify.model.artists.Artist
 import com.epam.kotify.model.tracks.Track
 import com.epam.kotify.repository.Resource
 import com.epam.kotify.repository.TopsRepository
-import com.epam.kotify.utils.AppContextProvider
-import com.epam.kotify.utils.AppExecutors
+import com.epam.kotify.utils.*
 import com.google.android.gms.maps.model.LatLng
 import javax.inject.Inject
 import com.epam.kotify.model.domain.Artist as DomainArtist
@@ -31,6 +30,7 @@ class TopsViewModel @Inject constructor(
     private val repository: TopsRepository,
     private val contextProvider: AppContextProvider,
     private val executors: AppExecutors,
+    private val mappers: Mappers,
     val geocoder: Geocoder
 ) : ViewModel() {
 
@@ -57,13 +57,7 @@ class TopsViewModel @Inject constructor(
 
     val artists: LiveData<Resource<List<DomainArtist>>> =
         Transformations.switchMap(topArtistsResponse) { response ->
-            val mapped = response.data?.map {
-                DomainArtist(
-                    it.name,
-                    it.image?.last()?.toString() ?: "",
-                    it.listeners ?: 0
-                )
-            }?.toList() ?: emptyList()
+            val mapped = mappers.mapToArtists(response.data ?: emptyList())
             MutableLiveData<Resource<List<DomainArtist>>>().also {
                 it.value = Resource(response.status, mapped, response.message)
             }
@@ -81,15 +75,7 @@ class TopsViewModel @Inject constructor(
     val tracks: LiveData<Resource<List<DomainTrack>>> =
         Transformations.switchMap(topTracksResponse) { response ->
             with(response) {
-                val list = data?.asSequence()?.map {
-                    DomainTrack(
-                        it.name,
-                        it.artist?.name ?: "None",
-                        it.image?.last()?.toString() ?: "",
-                        it.duration ?: 0,
-                        it.listeners ?: 0
-                    )
-                }?.toList() ?: emptyList()
+                val list = mappers.mapToTracks(data ?: emptyList())
                 MutableLiveData<Resource<List<DomainTrack>>>().also {
                     it.value = Resource(response.status, list, response.message)
                 }
