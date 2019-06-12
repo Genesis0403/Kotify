@@ -1,15 +1,18 @@
 package com.epam.kotify.ui
 
-import android.content.res.Configuration
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.epam.kotify.App
 import com.epam.kotify.R
+import com.epam.kotify.ui.viewmodels.TopsViewModel
+import com.epam.kotify.utils.ThemeManager
 import javax.inject.Inject
 
 /**
@@ -26,20 +29,21 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var themeManager: ThemeManager
 
-    private lateinit var viewModel: TopsViewModel
-
+    private lateinit var topsViewModel: TopsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.component.inject(this)
-        themeManager.setActivityTheme()
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[TopsViewModel::class.java]
+        topsViewModel = ViewModelProviders.of(this, viewModelFactory)[TopsViewModel::class.java]
+
+        themeManager.observeTheme(this)
+
+        val toolBar = findViewById<Toolbar>(R.id.mainActivityToolBar)
+        setSupportActionBar(toolBar)
 
         val viewPager = findViewById<ViewPager>(R.id.topsViewPager)
-        viewPager.apply {
-            adapter = TopsViewPagerAdapter(supportFragmentManager)
-        }
+        viewPager.adapter = TopsViewPagerAdapter(supportFragmentManager)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -49,22 +53,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
-            R.id.lightTheme -> {
-                if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-                    == Configuration.UI_MODE_NIGHT_YES
-                ) {
-                    themeManager.saveTheme(R.id.lightTheme)
-                    recreate()
-                }
-                return true
-            }
-            R.id.darkTheme -> {
-                if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-                    == Configuration.UI_MODE_NIGHT_NO
-                ) {
-                    themeManager.saveTheme(R.id.darkTheme)
-                    recreate()
-                }
+            R.id.settings -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
                 return true
             }
             else -> super.onOptionsItemSelected(item)

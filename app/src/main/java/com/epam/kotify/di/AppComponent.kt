@@ -4,6 +4,7 @@ import android.app.Application
 import com.epam.kotify.App
 import com.epam.kotify.ui.MainActivity
 import com.epam.kotify.ui.MapFragment
+import com.epam.kotify.ui.SettingsActivity
 import com.epam.kotify.ui.artistview.TopArtistsFragment
 import com.epam.kotify.ui.tracksview.TopTracksFragment
 import dagger.BindsInstance
@@ -41,4 +42,5 @@ interface AppComponent {
     fun inject(fragment: TopArtistsFragment)
     fun inject(fragment: TopTracksFragment)
     fun inject(fragment: MapFragment)
+    fun inject(activity: SettingsActivity)
 }

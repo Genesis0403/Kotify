@@ -4,7 +4,7 @@ import android.view.View
 import android.view.animation.AlphaAnimation
 
 /**
- * Views animator.
+ * ViewHolders animator.
  *
  * @author Vlad Korotkevich
  */
@@ -14,7 +14,7 @@ class ItemAnimator {
     private companion object {
         private const val DEFAULT_FROM_ALPHA = 0f
         private const val DEFAULT_TO_ALPHA = 1.0f
-        private const val DEFAULT_DURATION: Long = 500
+        private const val DEFAULT_DURATION: Long = 300
     }
 
     var fromAlpha = 0f

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.epam.kotify.App
 import com.epam.kotify.R
 import com.epam.kotify.repository.Status
+import com.epam.kotify.ui.viewmodels.TopsViewModel
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.MapsInitializer

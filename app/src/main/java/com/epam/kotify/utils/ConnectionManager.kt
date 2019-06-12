@@ -1,16 +1,12 @@
 package com.epam.kotify.utils
 
-import android.net.ConnectivityManager
-
 /**
- * Class which checks connection.
+ * Interfaces which used in injection.
+ * Checks for connectivity status.
  *
  * @author Vlad Korotkevich
  */
 
-data class ConnectionManager(
-    private val connectivityManager: ConnectivityManager
-) {
-
-    fun hasConnection() = connectivityManager.activeNetworkInfo?.isConnected != null
+interface ConnectionManager {
+    fun hasConnection(): Boolean
 }
