@@ -11,7 +11,9 @@ import com.epam.kotify.model.artists.Artist
 import com.epam.kotify.model.tracks.Track
 import com.epam.kotify.repository.Resource
 import com.epam.kotify.repository.TopsRepository
-import com.epam.kotify.utils.*
+import com.epam.kotify.utils.AppContextProvider
+import com.epam.kotify.utils.AppExecutors
+import com.epam.kotify.utils.Mappers
 import com.google.android.gms.maps.model.LatLng
 import javax.inject.Inject
 import com.epam.kotify.model.domain.Artist as DomainArtist
@@ -37,7 +39,7 @@ class TopsViewModel @Inject constructor(
     private companion object {
         private const val TAG = "TOPS VIEWMODEL"
         private const val LIMIT = 50
-        private const val NO_STRING_ERROR = "String not fount in string resources."
+        private const val NO_STRING_ERROR = "String not found in string resources."
     }
 
     private var _position: LatLng? = null
