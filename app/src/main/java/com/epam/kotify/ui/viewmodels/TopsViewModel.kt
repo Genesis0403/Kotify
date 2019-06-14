@@ -84,7 +84,12 @@ class TopsViewModel @Inject constructor(
             }
         }
 
+    val lovedArtists: LiveData<List<DomainArtist>> = repository.getLovedArtists()
+
+    val lovedTracks: LiveData<List<DomainTrack>> = repository.getLovedTracks()
+
     fun onMarkerSet(point: LatLng) {
+        println("$point")
         executors.diskIO().execute {
             _position = point
             try {
@@ -95,5 +100,29 @@ class TopsViewModel @Inject constructor(
                 Log.e(TAG, e.toString())
             }
         }
+    }
+
+    fun insertLovedArtist(artist: DomainArtist) {
+        if (!artist.isLoved) {
+            artist.isLoved = true
+            repository.insertLovedArtist(artist)
+        }
+    }
+
+    fun insertLovedTrack(track: DomainTrack) {
+        if (!track.isLoved) {
+            track.isLoved = true
+            repository.insertLovedTrack(track)
+        }
+    }
+
+    fun removeLovedArtist(artist: DomainArtist) {
+        repository.deleteLovedArtist(artist.name)
+        artist.isLoved = false
+    }
+
+    fun removeLovedTrack(track: DomainTrack) {
+        repository.deleteLovedTrack(track.title)
+        track.isLoved = false
     }
 }

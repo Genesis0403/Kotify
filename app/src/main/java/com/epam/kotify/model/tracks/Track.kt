@@ -1,6 +1,5 @@
 package com.epam.kotify.model.tracks
 
-import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.epam.kotify.model.Image
 import com.epam.kotify.model.artists.Artist
@@ -12,7 +11,6 @@ import com.google.gson.annotations.SerializedName
  * @author Vlad Korotkevich
  */
 
-@Entity
 data class Track(
     @PrimaryKey
     @field:SerializedName("name") val name: String = "None",

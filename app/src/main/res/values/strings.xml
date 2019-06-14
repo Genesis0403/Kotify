@@ -3,7 +3,7 @@
     <string name="play_count">Play count:</string>
     <string name="api_key">d6e24fc8d6da721a0761e551f519447e</string>
     <string name="listeners">Listeners:</string>
-    <string name="maps_api_key">AIzaSyClZMinAQB-1Nkk-DB_Tbem1mqyUm6Q0lU</string>
+    <string name="maps_api_key">AIzaSyApc8kdHl3I6LkGIvEF_KTCxr3Y38NmGO0</string>
     <string name="sorry_there_re_no_data">Sorry, there\'re no data</string>
     <string name="light_theme">Light theme</string>
     <string name="dark_theme">Dark theme</string>
@@ -17,4 +17,9 @@
     <string name="settingsMenu">Settings</string>
     <string name="settings_title">Settings</string>
     <string name="pref_night_theme_key">pref_night_theme_key</string>
+    <string name="dialog_title">Options</string>
+    <string name="success_insertion">Successfully added!</string>
+    <string name="success_remove">Successfully removed!</string>
+    <string name="failed_to_remove">Failed to remove</string>
+    <string name="insertion_failde">Insertion failed.</string>
 </resources>

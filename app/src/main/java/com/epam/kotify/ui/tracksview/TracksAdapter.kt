@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -13,14 +14,30 @@ import com.epam.kotify.model.domain.Track
 import com.epam.kotify.ui.ItemAnimator
 import java.util.concurrent.TimeUnit
 
-class TracksAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TracksAdapter(
+    private val listener: OnItemLongClickListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var tracks: List<Track> = emptyList()
     private val animator = ItemAnimator()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.track_item, parent, false)
-        return TrackViewHolder(view)
+        return TrackViewHolder(view).also { holder ->
+            holder.cardView.setOnLongClickListener {
+                initOnLongClickListener(holder)
+            }
+        }
+    }
+
+    private fun initOnLongClickListener(holder: TrackViewHolder): Boolean {
+        val position = holder.adapterPosition
+        return if (position != RecyclerView.NO_POSITION) {
+            listener.onLongClick(tracks[position])
+            true
+        } else {
+            false
+        }
     }
 
     override fun getItemCount(): Int {
@@ -86,5 +103,10 @@ class TracksAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val duration: TextView = view.findViewById(R.id.duration)
         val image: ImageView = view.findViewById(R.id.trackImage)
         val listeners: TextView = view.findViewById(R.id.listenersCountNumber)
+        val cardView: CardView = view.findViewById(R.id.trackCardView)
+    }
+
+    interface OnItemLongClickListener {
+        fun onLongClick(track: Track)
     }
 }

@@ -13,6 +13,8 @@ import com.epam.kotify.model.tracks.Track
 import com.epam.kotify.utils.AppExecutors
 import com.epam.kotify.utils.ConnectionManager
 import javax.inject.Inject
+import com.epam.kotify.model.domain.Artist as DomainArtist
+import com.epam.kotify.model.domain.Track as DomainTrack
 
 /**
  * Repository which takes care of API requests.
@@ -77,5 +79,45 @@ class TopsRepository @Inject constructor(
                 return countryTopService.getGeoTopTracks(country, limit, apiKey)
             }
         }.asLiveData()
+    }
+
+    fun insertLovedArtist(artist: DomainArtist) {
+        executors.diskIO().execute {
+            db.runInTransaction {
+                topsDao.insertLovedArtist(artist)
+            }
+        }
+    }
+
+    fun insertLovedTrack(track: DomainTrack) {
+        executors.diskIO().execute {
+            db.runInTransaction {
+                topsDao.insertLovedTrack(track)
+            }
+        }
+    }
+
+    fun getLovedArtists(): LiveData<List<DomainArtist>> {
+        return topsDao.getLovedArtists()
+    }
+
+    fun getLovedTracks(): LiveData<List<DomainTrack>> {
+        return topsDao.getLovedTracks()
+    }
+
+    fun deleteLovedArtist(name: String) {
+        executors.diskIO().execute {
+            db.runInTransaction {
+                topsDao.deleteLovedArtist(name)
+            }
+        }
+    }
+
+    fun deleteLovedTrack(title: String) {
+        executors.diskIO().execute {
+            db.runInTransaction {
+                topsDao.deleteLovedTrack(title)
+            }
+        }
     }
 }

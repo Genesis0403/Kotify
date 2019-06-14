@@ -1,12 +1,9 @@
 package com.epam.kotify.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.epam.kotify.model.artists.Artist
-import com.epam.kotify.model.tracks.Track
+import androidx.room.*
+import com.epam.kotify.model.domain.Artist
+import com.epam.kotify.model.domain.Track
 
 /**
  * DB requests.
@@ -18,20 +15,20 @@ import com.epam.kotify.model.tracks.Track
 interface TopsDao {
 
     @Query("SELECT * FROM artist")
-    fun getTopArtists(): LiveData<List<Artist>>
+    fun getLovedArtists(): LiveData<List<Artist>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertArtists(artist: List<Artist>): Array<Long>
+    fun insertLovedArtist(artist: Artist)
+
+    @Query("DELETE FROM artist WHERE name = :name")
+    fun deleteLovedArtist(name: String)
 
     @Query("SELECT * FROM track")
-    fun getTopTracks(): LiveData<List<Track>>
+    fun getLovedTracks(): LiveData<List<Track>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTracks(tracks: List<Track>): Array<Long>
+    fun insertLovedTrack(track: Track)
 
-    @Query("DELETE FROM artist")
-    fun clearArtists()
-
-    @Query("DELETE FROM track")
-    fun clearTracks()
+    @Query("DELETE FROM track WHERE title = :title")
+    fun deleteLovedTrack(title: String)
 }

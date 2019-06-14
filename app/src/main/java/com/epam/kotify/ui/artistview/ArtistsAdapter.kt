@@ -1,10 +1,12 @@
 package com.epam.kotify.ui.artistview
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -23,14 +25,32 @@ import com.epam.kotify.ui.artistview.ArtistsAdapter.ArtistViewHolder
  * @author Vlad Korotkevich
  */
 
-class ArtistsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+private const val TAG = "ARTISTS_ADAPTER"
+
+class ArtistsAdapter(
+    private val listener: OnItemLongClickListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var artists: List<Artist> = emptyList()
     private val animator = ItemAnimator()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.artist_item, parent, false)
-        return ArtistViewHolder(view)
+        return ArtistViewHolder(view).also { holder ->
+            holder.cardView.setOnLongClickListener {
+                initOnLongClickListener(holder)
+            }
+        }
+    }
+
+    private fun initOnLongClickListener(holder: ArtistViewHolder): Boolean {
+        Log.d(TAG, "CLICKED")
+        return if (holder.adapterPosition != RecyclerView.NO_POSITION) {
+            listener.onLongClick(artists[holder.adapterPosition])
+            true
+        } else {
+            false
+        }
     }
 
     override fun getItemCount(): Int {
@@ -45,8 +65,8 @@ class ArtistsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     artist.text = item.name
                     listeners.text = item.playCount.toString()
                     loadImage(image, item.image)
+                    animator.fadeInAnimation(itemView)
                 }
-                animator.fadeInAnimation(holder.itemView)
             }
         }
     }
@@ -74,5 +94,10 @@ class ArtistsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val image: ImageView = view.findViewById(R.id.artistImage)
         val artist: TextView = view.findViewById(R.id.artistName)
         val listeners: TextView = view.findViewById(R.id.listenersCountNumber)
+        val cardView: CardView = view.findViewById(R.id.artistCardView)
+    }
+
+    interface OnItemLongClickListener {
+        fun onLongClick(artist: Artist)
     }
 }

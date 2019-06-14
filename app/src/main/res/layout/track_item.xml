@@ -9,7 +9,7 @@
         android:background="@color/appBackgroundColor"
 >
     <androidx.cardview.widget.CardView
-            android:id="@+id/albumCard"
+            android:id="@+id/trackCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             kotifyApp:cardCornerRadius="@dimen/cornerRadius"
@@ -34,7 +34,7 @@
                     kotifyApp:layout_constraintBottom_toBottomOf="parent"
                     android:id="@+id/trackImage"/>
             <TextView
-                    tools:text="Девочка в классе"
+                    tools:text="What what"
                     android:textSize="@dimen/titleTextSize"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                     kotifyApp:layout_constraintHorizontal_bias="0.0"
                     kotifyApp:layout_constraintEnd_toEndOf="parent"/>
             <TextView
-                    tools:text="Джизус"
+                    tools:text="Who who"
                     android:textSize="@dimen/artistNameSize"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

@@ -1,6 +1,5 @@
 package com.epam.kotify.model.artists
 
-import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.epam.kotify.model.Image
 import com.google.gson.annotations.SerializedName
@@ -11,7 +10,6 @@ import com.google.gson.annotations.SerializedName
  * @author Vlad Korotkevich
  */
 
-@Entity
 data class Artist(
 
     @PrimaryKey

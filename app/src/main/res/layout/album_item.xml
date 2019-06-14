@@ -9,7 +9,7 @@
         android:background="#f2f2f2"
 >
     <androidx.cardview.widget.CardView
-            android:id="@+id/albumCard"
+            android:id="@+id/trackCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             kotifyApp:cardCornerRadius="@dimen/cornerRadius"

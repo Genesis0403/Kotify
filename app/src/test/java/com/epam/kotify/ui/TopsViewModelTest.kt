@@ -124,7 +124,6 @@ class TopsViewModelTest : Spek({
                 verify(inverse = true) { artistsObserver.onChanged(any()) }
                 verify(inverse = true) { countryObserver.onChanged(any()) }
             }
-
         }
 
         describe("ordered observation") {

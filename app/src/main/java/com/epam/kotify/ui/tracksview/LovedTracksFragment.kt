@@ -12,48 +12,36 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.epam.kotify.App
 import com.epam.kotify.R
 import com.epam.kotify.model.domain.Track
-import com.epam.kotify.repository.Resource
-import com.epam.kotify.ui.AddToLovedDialog
 import com.epam.kotify.ui.EmptyRecyclerView
+import com.epam.kotify.ui.RemoveFromLovedDialog
 import com.epam.kotify.ui.viewmodels.TopsViewModel
 import javax.inject.Inject
 
-/**
- * Fragment which contains [EmptyRecyclerView] which [Track] and
- * makes request via [TopsViewModel] and observes [LiveData] of [Track].
- *
- * @see TopsViewModel
- *
- * @author Vlad Korotkevich
- */
-
-class TopTracksFragment : Fragment(), TracksAdapter.OnItemLongClickListener {
+class LovedTracksFragment : Fragment(), TracksAdapter.OnItemLongClickListener {
 
     companion object {
-        private const val TAG = "TRACKS FRAGMENT"
-        private const val DIALOG_TAG = "Loved dialog"
-        fun newInstance() = TopTracksFragment()
+        private const val TAG = "LOVED_TRACKS_FRAGMENT"
+
+        fun newInstance() = LovedTracksFragment()
     }
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var factory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: TopsViewModel
-
+    private lateinit var topsViewModel: TopsViewModel
     private val tracksAdapter = TracksAdapter(this)
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onAttach(context: Context?) {
         App.component.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[TopsViewModel::class.java]
+        topsViewModel = ViewModelProviders.of(requireActivity(), factory)[TopsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -76,20 +64,16 @@ class TopTracksFragment : Fragment(), TracksAdapter.OnItemLongClickListener {
         }
 
         val progress = view.findViewById<ProgressBar>(R.id.progress)
-        viewModel.tracks.observe(this, Observer<Resource<List<Track>>> {
-            if (it.status.isLoading()) {
-                recycler.emptyView?.visibility = View.GONE
-                recycler.visibility = RecyclerView.GONE
-                progress.visibility = ProgressBar.VISIBLE
-            } else {
-                tracksAdapter.setTracks(it.data!!)
-                progress.visibility = ProgressBar.GONE
+        topsViewModel.lovedTracks.observe(this, Observer<List<Track>> {
+            tracksAdapter.run {
+                this.setTracks(it)
+                this.notifyDataSetChanged()
             }
         })
     }
 
     override fun onLongClick(track: Track) {
-        AddToLovedDialog.newInstance(AddToLovedDialog.TRACK_ID, track)
-            .show(activity?.supportFragmentManager, DIALOG_TAG)
+        RemoveFromLovedDialog.newInstance(RemoveFromLovedDialog.TRACK_ID, track)
+            .show(activity?.supportFragmentManager, null)
     }
 }

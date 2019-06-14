@@ -10,14 +10,22 @@ import com.epam.kotify.api.CountryTopService;
 import com.epam.kotify.db.AppDatabase;
 import com.epam.kotify.db.TopsDao;
 import com.epam.kotify.repository.TopsRepository_Factory;
+import com.epam.kotify.ui.AddToLovedDialog;
+import com.epam.kotify.ui.AddToLovedDialog_MembersInjector;
 import com.epam.kotify.ui.MainActivity;
 import com.epam.kotify.ui.MainActivity_MembersInjector;
 import com.epam.kotify.ui.MapFragment;
 import com.epam.kotify.ui.MapFragment_MembersInjector;
+import com.epam.kotify.ui.RemoveFromLovedDialog;
+import com.epam.kotify.ui.RemoveFromLovedDialog_MembersInjector;
 import com.epam.kotify.ui.SettingsActivity;
 import com.epam.kotify.ui.SettingsActivity_MembersInjector;
+import com.epam.kotify.ui.artistview.LovedArtistsFragment;
+import com.epam.kotify.ui.artistview.LovedArtistsFragment_MembersInjector;
 import com.epam.kotify.ui.artistview.TopArtistsFragment;
 import com.epam.kotify.ui.artistview.TopArtistsFragment_MembersInjector;
+import com.epam.kotify.ui.tracksview.LovedTracksFragment;
+import com.epam.kotify.ui.tracksview.LovedTracksFragment_MembersInjector;
 import com.epam.kotify.ui.tracksview.TopTracksFragment;
 import com.epam.kotify.ui.tracksview.TopTracksFragment_MembersInjector;
 import com.epam.kotify.ui.viewmodels.TopsViewModel;
@@ -170,6 +178,26 @@ public final class DaggerAppComponent implements AppComponent {
     injectSettingsActivity(activity);
   }
 
+  @Override
+  public void inject(AddToLovedDialog fragment) {
+    injectAddToLovedDialog(fragment);
+  }
+
+  @Override
+  public void inject(LovedArtistsFragment fragment) {
+    injectLovedArtistsFragment(fragment);
+  }
+
+  @Override
+  public void inject(LovedTracksFragment fragment) {
+    injectLovedTracksFragment(fragment);
+  }
+
+  @Override
+  public void inject(RemoveFromLovedDialog fragment) {
+    injectRemoveFromLovedDialog(fragment);
+  }
+
   private App injectApp(App instance) {
     App_MembersInjector.injectDispatchingActivityInjector(
         instance, getDispatchingAndroidInjectorOfActivity());
@@ -199,6 +227,26 @@ public final class DaggerAppComponent implements AppComponent {
 
   private SettingsActivity injectSettingsActivity(SettingsActivity instance) {
     SettingsActivity_MembersInjector.injectThemeManager(instance, themeManagerProvider.get());
+    return instance;
+  }
+
+  private AddToLovedDialog injectAddToLovedDialog(AddToLovedDialog instance) {
+    AddToLovedDialog_MembersInjector.injectFactory(instance, getTopsViewModelFactory());
+    return instance;
+  }
+
+  private LovedArtistsFragment injectLovedArtistsFragment(LovedArtistsFragment instance) {
+    LovedArtistsFragment_MembersInjector.injectFactory(instance, getTopsViewModelFactory());
+    return instance;
+  }
+
+  private LovedTracksFragment injectLovedTracksFragment(LovedTracksFragment instance) {
+    LovedTracksFragment_MembersInjector.injectFactory(instance, getTopsViewModelFactory());
+    return instance;
+  }
+
+  private RemoveFromLovedDialog injectRemoveFromLovedDialog(RemoveFromLovedDialog instance) {
+    RemoveFromLovedDialog_MembersInjector.injectFactory(instance, getTopsViewModelFactory());
     return instance;
   }
 
