@@ -10,6 +10,7 @@ Long click on item allows to add it to one of the loved lists or remove it from 
 * Retrofit2
 * Room
 * Glide
+* Android Architecture Components
 # Tests
 * Spek
 * MokK
